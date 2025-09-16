@@ -27,10 +27,13 @@
         <a class="link-btn" href="https://youtube.com" target="_blank">YouTube</a>
     </div>
 
-    <audio class="music" controls>
-        <source src="piosenka.mp3" type="audio/mpeg">
-        Twoja przeglądarka nie obsługuje odtwarzacza audio.
-    </audio>
+    <div class="music-container">
+        <audio id="audio" controls controlsList="nodownload">
+            <source src="piosenka.mp3" type="audio/mpeg">
+            Twoja przeglądarka nie obsługuje odtwarzacza audio.
+        </audio>
+        <canvas id="visualizer"></canvas>
+    </div>
 
     <div class="counter">
         Stronę odwiedzono: <span id="visit-count">0</span> razy
