@@ -5,7 +5,7 @@ visits++;
 localStorage.setItem('visitCount', visits);
 document.getElementById('visit-count').textContent = visits;
 
-// Kopiowanie Discorda do schowka
+// Kopiowanie Discorda
 document.getElementById('discord-btn').addEventListener('click', () => {
     navigator.clipboard.writeText('_d4presja_').then(() => {
         alert('Skopiowano: _d4presja_');
@@ -14,48 +14,57 @@ document.getElementById('discord-btn').addEventListener('click', () => {
     });
 });
 
-// Visualizer audio
+// Player controls
 const audio = document.getElementById('audio');
+const playBtn = document.getElementById('play-btn');
+const progressBar = document.querySelector('.progress');
+
+playBtn.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        playBtn.textContent = '⏸️';
+    } else {
+        audio.pause();
+        playBtn.textContent = '▶️';
+    }
+});
+
+audio.addEventListener('timeupdate', () => {
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    progressBar.style.width = progressPercent + '%';
+});
+
+// Visualizer
 const canvas = document.getElementById('visualizer');
 const ctx = canvas.getContext('2d');
-
-// Ustawienia canvas
 canvas.width = canvas.offsetWidth;
 canvas.height = canvas.offsetHeight;
 
-// Tworzenie audio context i analyser
 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const analyser = audioCtx.createAnalyser();
 const source = audioCtx.createMediaElementSource(audio);
 source.connect(analyser);
 analyser.connect(audioCtx.destination);
-analyser.fftSize = 64;
+analyser.fftSize = 128;
 
 const bufferLength = analyser.frequencyBinCount;
 const dataArray = new Uint8Array(bufferLength);
 
-// Funkcja rysująca visualizer
 function draw() {
     requestAnimationFrame(draw);
     analyser.getByteFrequencyData(dataArray);
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    const barWidth = (canvas.width / bufferLength) * 2.5;
+    const barWidth = (canvas.width / bufferLength) * 1.5;
     let x = 0;
-
     for(let i = 0; i < bufferLength; i++) {
         const barHeight = dataArray[i] / 2;
-        ctx.fillStyle = '#00ff00'; // zielony kolor słupków
+        ctx.fillStyle = '#00ff00';
         ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
         x += barWidth + 1;
     }
 }
 
-// Uruchamianie visualizera po odtworzeniu audio
 audio.onplay = () => {
-    if (audioCtx.state === 'suspended') {
-        audioCtx.resume();
-    }
+    if (audioCtx.state === 'suspended') audioCtx.resume();
     draw();
 };
