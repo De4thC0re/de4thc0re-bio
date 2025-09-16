@@ -8,38 +8,52 @@
 </head>
 <body>
 <div class="profile">
-    <img class="avatar" src="avatar.jpg" alt="De4thC0re Avatar">
-    <div class="name">De4thC0re</div>
 
-    <div class="description">
-        <p>🌍 Country: Poland</p>
-        <p>🎮 Gram w: Minecraft (BanknotMc.pl), Counter-Strike 2, Fortnite</p>
-        <p>🏆 Topka w Normal Minestar – 21.08.2025, 2100 ELO</p>
-        <p>💀 Topka killi Mineblaze – 696 killi</p>
-        <p>🐾 Zwierzaki: Luna i Bella ❤️</p>
-        <p>🎵 Young Multi Fan</p>
-        <p>🔥 47 FAN</p>
+    <!-- Avatar -->
+    <div class="avatar-container">
+        <img class="avatar" src="avatar.jpg" alt="De4thC0re Avatar">
     </div>
 
-    <div class="links">
-        <div class="discord-logo" id="discord-btn">
-            <img src="discord-logo.png" alt="Discord Logo">
+    <!-- Logo Discord -->
+    <div class="logo-container">
+        <img src="logo.jpeg" alt="Discord Logo" class="discord-logo" id="discord-btn">
+    </div>
+
+    <!-- Opis -->
+    <div class="description">
+        <div class="info-group">
+            <p>🌍 Country: Poland</p>
+            <p>🎮 Gram w: Minecraft (BanknotMc.pl), Counter-Strike 2, Fortnite</p>
+        </div>
+        <div class="info-group">
+            <p>🏆 Topka w Normal Minestar – 21.08.2025, 2100 ELO</p>
+            <p>💀 Topka killi Mineblaze – 696 killi</p>
+        </div>
+        <div class="info-group">
+            <p>🐾 Zwierzaki: Luna i Bella ❤️</p>
+            <p>🎵 Young Multi Fan</p>
+            <p>🔥 47 FAN</p>
         </div>
     </div>
 
+    <!-- Music Player -->
     <div class="music-container">
-        <audio id="audio" controls controlsList="nodownload">
-            <source src="piosenka.mp3" type="audio/mpeg">
-            Twoja przeglądarka nie obsługuje odtwarzacza audio.
-        </audio>
+        <div class="player-controls">
+            <button id="play-btn">▶️</button>
+            <div class="progress-container">
+                <div class="progress"></div>
+            </div>
+        </div>
+        <audio id="audio" src="piosenka.mp3"></audio>
         <canvas id="visualizer"></canvas>
     </div>
 
+    <!-- Licznik wejść -->
     <div class="counter">
         Stronę odwiedzono: <span id="visit-count">0</span> razy
     </div>
-</div>
 
+</div>
 <script src="script.js"></script>
 </body>
 </html>
